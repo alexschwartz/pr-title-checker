@@ -1,5 +1,5 @@
-name: "PR Title Checker"
-description: "Checks if the PR Title follows contribution guidelines."
+name: "PR Title Checker Global"
+description: "Checks if the PR Title follows contribution guidelines; allowing to be used for org-wide global actions."
 branding:
   icon: "tag"
   color: "purple"
