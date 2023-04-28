@@ -27,6 +27,7 @@
     "@octokit/action": "^3.0.5"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0"
+    "@vercel/ncc": "^0.34.0",
+    "npm-prepare-dist": "^0.4.1"
   }
 }

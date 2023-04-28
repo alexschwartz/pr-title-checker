@@ -62899,10 +62899,14 @@ async function run() {
   try {
     const title = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request.title;
     const labels = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request.labels;
+    
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Starting analysis using action alexschwartz/pr-title-checker-global`);
+    
 
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Reading config file ....`);
     let config;
     try {
-      config = await getJSON(configPath);
+      config = await getConfigFromLocalFile(configPath);
       config = JSON.parse(config);
     } catch (e) {
       _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(`Couldn't retrieve or parse the config file specified - ${e}`);
@@ -63040,12 +63044,18 @@ async function removeLabel(labels, name) {
   }
 }
 
-async function getJSON(repoPath) {
+async function getConfigFromLocalFile(configFile) {
+  const fs = __nccwpck_require__(7147);
+  _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Trying to read file "${configFile}", PWD: "${__dirname}"`);
+  return fs.readFileSync(configFile, 'utf8').toString()
+}
+
+async function getConfigFromFileInThisRepo(repoPath) {
   const response = await octokit.repos.getContent({
     owner,
     repo,
     path: repoPath,
-    ref: _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.sha,
+    ref: github.context.sha,
   });
 
   return Buffer.from(response.data.content, response.data.encoding).toString();
