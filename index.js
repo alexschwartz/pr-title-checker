@@ -13,7 +13,11 @@ async function run() {
   try {
     const title = github.context.payload.pull_request.title;
     const labels = github.context.payload.pull_request.labels;
+    
+    core.info(`Starting analysis using action alexschwartz/pr-title-checker-global`);
+    
 
+    core.info(`Reading config file ....`);
     let config;
     try {
       config = await getConfigFromLocalFile(configPath);
