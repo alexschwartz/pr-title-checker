@@ -156,6 +156,7 @@ async function removeLabel(labels, name) {
 
 async function getConfigFromLocalFile(configFile) {
   const fs = require('fs');
+  core.info(`Trying to read file "${configFile}", PWD: "${__dirname}"`);
   return fs.readFileSync(configFile, 'utf8').toString()
 }
 
