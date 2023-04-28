@@ -16,7 +16,7 @@ async function run() {
 
     let config;
     try {
-      config = await getJSON(configPath);
+      config = await getConfigFromLocalFile(configPath);
       config = JSON.parse(config);
     } catch (e) {
       core.setFailed(`Couldn't retrieve or parse the config file specified - ${e}`);
@@ -154,7 +154,12 @@ async function removeLabel(labels, name) {
   }
 }
 
-async function getJSON(repoPath) {
+async function getConfigFromLocalFile(configFile) {
+  const fs = require('fs');
+  return fs.readFileSync(configFile, 'utf8').toString()
+}
+
+async function getConfigFromFileInThisRepo(repoPath) {
   const response = await octokit.repos.getContent({
     owner,
     repo,
