@@ -1,11 +1,7 @@
 # Pull Request Title Checker
 
-This is a fork of https://github.com/thehanimo/pr-title-checker to allow for organization-wide actions.
-
-<!-- prettier-ignore -->
-This action checks if PR titles conform to the Contribution Guidelines :ballot_box_with_check: <br/><br/>
-Consistent title names help maintainers organise their projects better :books: <br/><br/>
-Shows if the author has _reaaaaally_ read the Contribution Guidelines :P
+This is a fork of the github https://github.com/thehanimo/pr-title-checker for checking the _title_ of a PR.
+The fork supports to use it for for organization-wide actions.
 
 ## Usage
 
