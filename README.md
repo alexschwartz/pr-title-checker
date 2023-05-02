@@ -3,57 +3,28 @@
 This is a fork of the github https://github.com/thehanimo/pr-title-checker for checking the _title_ of a PR.
 The fork supports to use it for for organization-wide actions.
 
-## Usage
+## Usage for organization-wide action
 
-### Usage as organization-wide action
 
-This repo contains its config embedded.
+### Usage
+
+This repo contains a github action.
+Its config is embedded in the `ìndex.js` file.
 
 To use it in your organization requires two steps:
-1. create a repo containing a yaml file `pr-title-lint-blocking.yaml`:
-```yaml
-name: 'pr-title-lint-blocking'
-on:
-  pull_request_target:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - labeled
-      - unlabeled
-
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check
-        id: check
-        uses: alexschwartz/pr-title-checker-global@v1.3.7.6
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          pass_on_octokit_error: false
-  explain:
-    runs-on: ubuntu-latest
-    if: ${{ failure() }}
-    needs: check
-    steps:
-      - name: explain
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          comment_tag: pre-title-comment
-          message: |
-            Hello emnify contributor ! :wave: 
-            
-            as of March 2023 there is a little change: 
-            please ensure the jira story or task is mentioned in your **_PR title_** and the **_merge commit_**.
-    
-            Example: `[TLC-42] more details in error message`
-
-            Please see https://emnify.atlassian.net/l/cp/137qAdn1 for details.
-```
+1. create a repo containing a _(github action) workflow yaml file_: https://github.com/emnify/github-action-pr-title-lint/blob/main/.github%20/workflows/pr-title-lint-blocking.yml
 2. reference this file in the global config of your github enterprise under https://github.com/organizations/myorg/settings/actions "Required workflows"
 
-### Standard Usage
+
+### Release Process
+
+If changes to the action or its config are required please proceed as follows:
+1. commit and push your changes
+2. perform `npm prepare`and commit adn push the changes in the `dist` folder
+3. create a tag for this version -- no need to create a release !
+4. in the workflow file reference the new version number
+
+## Standard Usage
 
 In your target repository create two files.
 
