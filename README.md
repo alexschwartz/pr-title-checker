@@ -59,6 +59,10 @@ jobs:
 
 ### Standard Usage
 
+In your target repository create two files.
+
+#### Create config file
+
 Create a config file `.github/pr-title-checker-config.json` like this one below:
 
 ```json
@@ -91,7 +95,7 @@ This action causes CI tests to fail by default. However, if you do not want CI t
 
 Also, adding label names to the optional `ignoreLabels` field will forfeit any checks for PRs with those labels.
 
-## Create Workflow
+#### Create Workflow file
 
 Create a workflow (eg: `.github/workflows/pr-title-checker.yml` see [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file)) to utilize the pr-title-checker action with content:
 
