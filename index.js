@@ -17,7 +17,8 @@ async function run() {
     core.info(`Starting analysis using action alexschwartz/pr-title-checker-global`);
     
 
-    core.info(`Reading config file ....`);
+    core.info(`Reading config file ...."${configPath}"`);
+    
     let config;
     try {
       config = await getConfigFromLocalFile(configPath);
