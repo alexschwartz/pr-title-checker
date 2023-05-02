@@ -14,7 +14,7 @@ Shows if the author has _reaaaaally_ read the Contribution Guidelines :P
 This repo contains its config embedded.
 
 To use it in your organization requires two steps:
-1. create a repo containing a yaml file {{pr-title-lint-blocking.yaml}}:
+1. create a repo containing a yaml file `pr-title-lint-blocking.yaml`:
 ```yaml
 name: 'pr-title-lint-blocking'
 on:
