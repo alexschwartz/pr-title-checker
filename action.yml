@@ -12,7 +12,6 @@ inputs:
     default: false
   configuration_path:
     description: "config file path"
-    default: ".github/pr-title-checker-config.json"
 runs:
   using: "node16"
   main: "dist/index.js"
