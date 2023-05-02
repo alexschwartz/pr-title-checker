@@ -1,11 +1,63 @@
 # Pull Request Title Checker
 
+This is a fork of https://github.com/thehanimo/pr-title-checker to allow for organization-wide actions.
+
 <!-- prettier-ignore -->
 This action checks if PR titles conform to the Contribution Guidelines :ballot_box_with_check: <br/><br/>
 Consistent title names help maintainers organise their projects better :books: <br/><br/>
 Shows if the author has _reaaaaally_ read the Contribution Guidelines :P
 
 ## Usage
+
+### Usage as organization-wide action
+
+This repo contains its config embedded.
+
+To use it in your organization requires two steps:
+1. create a repo containing a yaml file {{pr-title-lint-blocking.yaml}}:
+```yaml
+name: 'pr-title-lint-blocking'
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - labeled
+      - unlabeled
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check
+        id: check
+        uses: alexschwartz/pr-title-checker-global@v1.3.7.6
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pass_on_octokit_error: false
+  explain:
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    needs: check
+    steps:
+      - name: explain
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: pre-title-comment
+          message: |
+            Hello emnify contributor ! :wave: 
+            
+            as of March 2023 there is a little change: 
+            please ensure the jira story or task is mentioned in your **_PR title_** and the **_merge commit_**.
+    
+            Example: `[TLC-42] more details in error message`
+
+            Please see https://emnify.atlassian.net/l/cp/137qAdn1 for details.
+```
+2. reference this file in the global config of your github enterprise under https://github.com/organizations/myorg/settings/actions "Required workflows"
+
+### Standard Usage
 
 Create a config file `.github/pr-title-checker-config.json` like this one below:
 
