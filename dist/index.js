@@ -62903,7 +62903,8 @@ async function run() {
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Starting analysis using action alexschwartz/pr-title-checker-global`);
     
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Reading config file ....`);
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Reading config file ...."${configPath}"`);
+    
     let config;
     try {
       config = await getConfigFromLocalFile(configPath);
