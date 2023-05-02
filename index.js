@@ -20,12 +20,38 @@ async function run() {
     core.info(`Reading config file ...."${configPath}"`);
     
     let config;
-    try {
-      config = await getConfigFromLocalFile(configPath);
-      config = JSON.parse(config);
-    } catch (e) {
-      core.setFailed(`Couldn't retrieve or parse the config file specified - ${e}`);
-      return;
+    if (configPath != "") {
+      try {
+        config = await getConfigFromLocalFile(configPath);
+        config = JSON.parse(config);
+      } catch (e) {
+        core.setFailed(`Couldn't retrieve or parse the config file specified - ${e}`);
+        return;
+      }
+    } else {
+        config = {
+  LABEL: {
+    name: "PR title needs jira ticket",
+    color: "CC00CC"
+  },
+  CHECKS: {
+    alwaysPassCI: false,
+    prefixes: [
+      "Bump "
+    ],
+    regexp: "\\[[A-Z]{2,}-\\d+(,\\s*[A-Z]{2,}-\\d+)*\\],
+    regexpFlags: "",
+    ignoreLabels: [
+      "dont-check-PRs-with-this-label",
+      "dependencies"
+    ]
+  },
+  MESSAGES: {
+    success: "OK - PR title contains reference to jira issue(s)",
+    failure: "FAILURE because of PR title not meeting requirements; see https://emnify.atlassian.net/l/cp/137qAdn1 for details",
+    notice: ""
+  }
+}
     }
     let { CHECKS, LABEL, MESSAGES } = config;
     LABEL = LABEL || {};
